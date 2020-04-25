@@ -29,7 +29,7 @@ declarative statements
 
 - Statements are a text that DB recognizes as a valid command and end in a ;
 
-```
+```SQL
 CREATE TABLE table_name(
   column_1 data_type,
   column_2 data_type
@@ -39,9 +39,8 @@ CREATE TABLE table_name(
 - `CREATE TABLE` is the clause aka command
 - Clauses perform specific tasks in SQL and are written in CAPS
 - Everything inside the `( )` are the parameters
-- Ex:
 
-```
+```SQL
 CREATE TABLE celebs(
   id INTEGER,
   name TEXT,
@@ -54,9 +53,8 @@ CREATE TABLE celebs(
 - Use `INSERT INTO table_name` statement
 - Followed by parameters identifying the columns the data will be inserted
 - Lastly, the values that will be inserted
-- Ex:
 
-```
+```SQL
 INSERT INTO celebs (id, name, age)
 VALUES (1, 'Justin Bieber', 21);
 ```
@@ -64,9 +62,8 @@ VALUES (1, 'Justin Bieber', 21);
 #### SELECT
 
 - `SELECT` statements are used to query data from a database
-- Ex:
 
-```
+```SQL
 SELECT name FROM celebs;
 ```
 
@@ -74,48 +71,47 @@ SELECT name FROM celebs;
 - Can also select multiple columns, just separate column names with a comma
 - Can also select all columns from a table:
 
-```
+```SQL
 SELECT * FROM celebs;
 ```
 
-- SELECT statements always return a new table called the result set
+- `SELECT` statements always return a new table called the result set
 
 #### UPDATE
 
 - Allows to edit a row in a table to change existing records
-- Ex:
 
-```
+```SQL
 UPDATE celebs
 SET age = 22
 WHERE id = 1;
 ```
 
-- SET column = new_value
-- WHERE id = id_number // will tell you what row to update
+- `SET column = new_value`
+- `WHERE id = id_number` // will tell you what row to update
 
 #### ALTER TABLE
 
 - Adds a new column to a table
 
-```
+```SQL
 ALTER TABLE celebs
 ADD COLUMN twitter_handle TEXT;
 ```
 
-- Use ALTER TABLE to edit the table called celebs
-- Adds a column called twitter_handle which is of type TEXT
+- Use `ALTER TABLE` to edit the table called celebs
+- Adds a column called `twitter_handle` which is of type `TEXT`
 
 #### DELETE FROM
 
-- Deletes one ore more rows from a table
+- Deletes one or more rows from a table
 
-```
+```SQL
 DELETE FROM celebs
 WHERE twitter_handle IS NULL;
 ```
 
-- This will delete from the celebs table where the twitter_handle column has
+- This will delete from the `celebs` table where the `twitter_handle` column has
   null values
 
 #### CONSTRAINTS
@@ -123,9 +119,8 @@ WHERE twitter_handle IS NULL;
 - Add information about how a column can be used
 - They can be used to tell a DB to reject inserted data that does not adhere to
   a certain restriction
-- Ex:
 
-```
+```SQL
 CREATE TABLE celebs (
    id INTEGER PRIMARY KEY,
    name TEXT UNIQUE,
@@ -135,22 +130,23 @@ CREATE TABLE celebs (
 ```
 
 1. `PRIMARY KEY` columns can be used to uniquely identify the row. Attempts to
-   insert a row with an identical value to a row already in the table will result
-   in a constraint violation which will not allow you to insert the new row.
+   insert a row with an identical value to a row already in the table will
+   result in a constraint violation which will not allow you to insert the new
+   row.
 
 2. `UNIQUE` columns have a different value for every row. This is similar to
    `PRIMARY KEY` except a table can have many different `UNIQUE` columns.
 
 3. `NOT NULL` columns must have a value. Attempts to insert a row without a
-   value for a `NOT NULL` column will result in a constraint violation and the new
-   row will not be inserted.
+   value for a `NOT NULL` column will result in a constraint violation and the
+   new row will not be inserted.
 
 4. `DEFAULT` columns take an additional argument that will be the assumed value
    for an inserted row if the new row does not specify a value for that column.
 
 #### AS (change a column or table to be known as something else)
 
-- IS a keyword in SQL that allows you to rename a column or table using an
+- `IS` a keyword in SQL that allows you to rename a column or table using an
   alias
 - The new name can be anything you want as long as you put it inside of
   **_single quotes_**
@@ -159,9 +155,8 @@ CREATE TABLE celebs (
 
 - Used to return unique values in the output
 - Filters out all duplicate values in specified columns
-- Ex:
 
-```
+```SQL
 SELECT DISTINCT genre
 FROM movies;
 ```
@@ -173,7 +168,7 @@ FROM movies;
 - filters the result set to only include rows where the following condition is
   true
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE imdb_rating > 8;
@@ -188,7 +183,7 @@ WHERE imdb_rating > 8;
 - `_` is the wildcard character to match a pattern
 - `%` Are used for before and after
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE name LIKE 'Se_en';
@@ -196,15 +191,15 @@ WHERE name LIKE 'Se_en';
 
 - This would recognize 'Seven' and 'Se7en'
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE name LIKE '%man%';
 ```
 
 - This will return any movie that contains the word man in its name
-- A% matches all movies with names that begin with letter 'A'
-- %a matches all movies that end with 'a'
+- `A%` matches all movies with names that begin with letter 'A'
+- `%a` matches all movies that end with 'a'
 
 #### BETWEEN
 
@@ -213,7 +208,7 @@ WHERE name LIKE '%man%';
 - BETWEEN two letters **_is not_** inclusive of the 2nd letter
 - BETWEEN two numbers **_is_** inclusive of the 2nd number
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE name BETWEEN 'A' AND 'J';
@@ -221,7 +216,7 @@ WHERE name BETWEEN 'A' AND 'J';
 
 - This is will be A - not including J
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE year BETWEEN 1990 AND 1999;
@@ -233,7 +228,7 @@ WHERE year BETWEEN 1990 AND 1999;
 
 - Combine multiple conditions in a `WHERE` clause
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE year < 1985
@@ -246,7 +241,7 @@ AND genre == 'horror';
 
 - Same as AND but will display if any condition is true
 
-```
+```SQL
 SELECT *
 FROM movies
 WHERE year > 2014
@@ -256,17 +251,16 @@ OR genre = 'action';
 #### ORDER BY
 
 - Sort results using `ORDER BY` either alphabetically or numerically
-- Ex:
 
-```
+```SQL
 SELECT name, year, imdb_rating
 FROM movies
 ORDER BY imdb_rating DESC;
 ```
 
 - This will display 3 columns (name, year, imdb_rating) and sort them in
-  descending order by values from the imdb_rating column (note, don't need to use
-  `DESC` if want it to be in Ascending order)
+  descending order by values from the imdb_rating column (note, don't need to
+  use `DESC` if want it to be in Ascending order)
 
 #### LIMIT
 
@@ -274,7 +268,7 @@ ORDER BY imdb_rating DESC;
 - You can specify the max number of rows a result set would have
 - This could possibly make the queries run faster
 
-```
+```SQL
 SELECT *
 FROM movies
 ORDER BY imdb_rating DESC
@@ -286,9 +280,8 @@ LIMIT 3;
 #### CASE
 
 - Allows to create different outputs in the `SELECT` statement
-- Ex:
 
-```
+```SQL
 SELECT name,
  CASE
   WHEN genre = 'romance' THEN 'Chill'
@@ -304,17 +297,16 @@ FROM movies;
 #### AGGREGATES
 
 - Calculations on multiple rows of a table are called aggregates
-- Ex:
-  - `SELECT COUNT( *) FROM table_name`: count the number of rows
-  - `SELECT SUM(column_name) FROM table_name`: the sum of values in a column
-  - `MAX()/MIN()`: returns the largest/smallest value in the given column
-  - `SELECT MAX(column_name) FROM table_name`
-  - `SELECT MIN(column_name) FROM table_name`
-  - `SELECT AVG() FROM table_name`: the average of the values in a column
-  - `ROUND(column_name,number of decimals)`: round the values in the column
-  - `GROUP BY` is a clause used with aggregate functions to combine data from
-    one or more columns
-  - `HAVING` limit the results of a query based on an aggregate property
+- `SELECT COUNT( *) FROM table_name`: count the number of rows
+- `SELECT SUM(column_name) FROM table_name`: the sum of values in a column
+- `MAX()/MIN()`: returns the largest/smallest value in the given column
+- `SELECT MAX(column_name) FROM table_name`
+- `SELECT MIN(column_name) FROM table_name`
+- `SELECT AVG() FROM table_name`: the average of the values in a column
+- `ROUND(column_name,number of decimals)`: round the values in the column
+- `GROUP BY` is a clause used with aggregate functions to combine data from
+  one or more columns
+- `HAVING` limit the results of a query based on an aggregate property
 
 #### GROUPBY
 
@@ -322,9 +314,8 @@ FROM movies;
 - Used in collaboration with `SELECT` statements to arrange identical data into
   groups
 - Comes before any `WHERE` statement but **_before_** `ORDERBY` and `LIMIT`
-- Ex:
 
-```
+```SQL
 SELECT price, COUNT(*)
 FROM fake_apps
 GROUP BY price;
@@ -342,16 +333,14 @@ GROUP BY price;
 - It is similar to `WHERE` but you can't use it in this cause because you don't
   want to filter the rows, you want to filter the groups!
 - Always comes **_after_** `GROUPBY` but before `ORDERBY` and `LIMIT`
--
 
 # MULTIPLE TABLES
 
 #### JOIN
 
 - Combine information from different tables into a single table
-- Ex:
 
-```
+```SQL
 SELECT *
 FROM orders
 JOIN customers
@@ -359,9 +348,9 @@ JOIN customers
 ```
 
 - This will get everything from orders table and customer table, could also
-  specify which columns you want. Then I want to JOIN information from the orders
-  with customers. Next is telling how to combine the two tables. Want to take
-  order's customer_id and match it with customer's customer_id
+  specify which columns you want. Then I want to JOIN information from the
+  ordersNwith customers. Next is telling how to combine the two tables. Want to
+  take order's customer_id and match it with customer's customer_id
 
 #### INNER JOIN
 
@@ -386,9 +375,7 @@ JOIN customers
 
 #### CROSS JOIN
 
-- Ex:
-
-```
+```SQL
 SELECT shirts.shirt_color,
    pants.pants_color
 FROM shirts
